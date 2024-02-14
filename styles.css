@@ -38,3 +38,9 @@ blockquote {
 	border: 0;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
+
+footer {
+	color: rgb(5, 110, 14);
+	text-align: center;
+	bottom: 0;
+}
