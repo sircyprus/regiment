@@ -4,14 +4,16 @@ body {
 	
 }
 
-blockquote {
-	color: rgb(5, 110, 14);
+.blockquote {
+	color: rgb(116, 237, 127);
+	font-size: 1.15rem;
 }
 
 :root, [data-bs-theme=light] {
 	--bs-tertiary-bg-rgb: 0,0,0;
 	align-items: center;
 }
+
 
 .navbar-brand {
 	padding-top: var(--bs-navbar-brand-padding-y);
@@ -40,7 +42,7 @@ blockquote {
 }
 
 footer {
-	color: rgb(5, 110, 14);
+	color: rgb(116, 237, 127);
 	text-align: center;
 	bottom: 0;
 }
