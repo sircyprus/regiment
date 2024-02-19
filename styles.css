@@ -1,6 +1,7 @@
 body {
 	background-color: #000;
 	color: rgb(0 239 20);
+	font-family: Brougham, Consolas, Calibri;
 	
 }
 
@@ -14,6 +15,9 @@ body {
 	align-items: center;
 }
 
+.navbar navbar-expand-lg bg-body-tertiary {
+	font-family: Calibri;
+}
 
 .navbar-brand {
 	padding-top: var(--bs-navbar-brand-padding-y);
