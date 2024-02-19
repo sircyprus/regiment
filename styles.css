@@ -17,6 +17,7 @@ body {
 
 .navbar navbar-expand-lg bg-body-tertiary {
 	font-family: Calibri;
+	color: red;
 }
 
 .container {
@@ -27,6 +28,21 @@ body {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	text-align: center;
 }
+
+.dropdownbtn {
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px solid #00ff00; /* Green line at the bottom */
+	color: #00ff00; /* Green text */
+	transition: color 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+
+
+	.dropdownbtn:hover {
+		color: red; /* Change text color on hover */
+		border-color: red; /* Change border color on hover */
+	}
 
 h1 {
 	text-align: center;
@@ -73,6 +89,14 @@ button {
 	color: rgb(0 239 20);
 	text-decoration: none;
 	white-space: nowrap;
+}
+
+.navbar-brand:hover{
+	color: red;
+}
+
+.nav-item:hover{
+	color: red;
 }
 
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
