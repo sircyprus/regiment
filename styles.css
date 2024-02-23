@@ -91,16 +91,26 @@ button {
 	white-space: nowrap;
 }
 
-.navbar-brand:hover{
-	color: red;
-}
+	.navbar-brand:hover {
+		color: red;
+	}
 
-.nav-item:hover{
-	color: red;
-}
 
 .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
 	color: rgb(0 239 20);
+}
+
+
+.nav-item:hover {
+	color: red;
+}
+
+.navbar-nav .nav-link {
+	color: green;
+}
+
+.navbar-nav .nan-link:hover {
+	color: red;
 }
 
 .nav-link {
@@ -108,12 +118,13 @@ button {
 	padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
 	font-size: var(--bs-nav-link-font-size);
 	font-weight: var(--bs-nav-link-font-weight);
-	color: rgb(0 239 20);
+	color: red;
 	text-decoration: none;
 	background: 0 0;
 	border: 0;
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
+
 
 footer {
 	color: rgb(0 239 20);

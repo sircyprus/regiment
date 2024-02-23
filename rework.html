@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .goal-card {
+            margin-bottom: 20px;
+        }
+
+        .checkmark {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Goal Tracker</h1>
+        <form id="goal-form">
+            <div class="mb-3">
+                <label for="goals" class="form-label">Set Goals</label>
+                <input type="text" class="form-control" id="goals" placeholder="Enter goal">
+            </div>
+            <button type="submit" class="btn btn-primary">Set Goal</button>
+        </form>
+
+        <div id="goal-cards" class="mt-4"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const goalForm = document.getElementById('goal-form');
+            const goalInput = document.getElementById('goals');
+            const goalCardsContainer = document.getElementById('goal-cards');
+
+            // Function to create a goal card
+            function createGoalCard(goalText) {
+                const card = document.createElement('div');
+                card.classList.add('card', 'goal-card');
+                card.innerHTML = `
+                    <div class="card-body">
+                        <h5 class="card-title">${goalText}</h5>
+                        <div class="checkmarks" id="checkmarks-${goalText.replace(/\s+/g, '-').toLowerCase()}"></div>
+                        <p class="progress-text">Next check off available in <span id="countdown"></span></p>
+                        <div class="form-check form-check-inline" id="checkOffContainer"></div>
+                    </div>
+                `;
+                goalCardsContainer.appendChild(card);
+
+                // Countdown timer for check off availability
+                const countdownElement = card.querySelector('#countdown');
+                const checkOffContainer = card.querySelector('#checkOffContainer');
+                const checkmarksContainer = card.querySelector(`#checkmarks-${goalText.replace(/\s+/g, '-').toLowerCase()}`);
+
+                const today = new Date();
+                today.setHours(22, 0, 0, 0); // 10 PM NZT
+
+                function updateCountdown() {
+                    const now = new Date();
+                    const distance = today - now;
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+                    if (distance <= 0) {
+                        clearInterval(countdownInterval);
+                        countdownElement.innerHTML = 'Now';
+                        enableCheckOff();
+                    }
+                }
+
+                const countdownInterval = setInterval(updateCountdown, 1000);
+                updateCountdown();
+
+                // Function to enable check-off
+                function enableCheckOff() {
+                    const completionData = JSON.parse(localStorage.getItem('completionData')) || {};
+                    const goalCompletionData = completionData[goalText] || {};
+                    const todayKey = new Date().toISOString().split('T')[0];
+                    const isCompleted = goalCompletionData[todayKey] || false;
+
+                    if (!isCompleted) {
+                        const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                        for (let i = 0; i < 7; i++) {
+                            const checkbox = document.createElement('input');
+                            checkbox.classList.add('form-check-input');
+                            checkbox.type = 'checkbox';
+                            checkbox.id = `checkOff-${i}`;
+                            checkbox.value = '';
+                            checkbox.disabled = false;
+                            checkbox.checked = false;
+                            checkOffContainer.appendChild(checkbox);
+
+                            const label = document.createElement('label');
+                            label.classList.add('form-check-label');
+                            label.htmlFor = `checkOff-${i}`;
+                            label.innerText = daysOfWeek[i]; // Display abbreviated day names
+                            checkOffContainer.appendChild(label);
+                        }
+                    } else {
+                        const message = document.createElement('p');
+                        message.innerText = 'You have already completed your task for today.';
+                        checkOffContainer.appendChild(message);
+                    }
+                }
+
+                enableCheckOff();
+
+                // Function to handle task completion
+                checkOffContainer.addEventListener('change', function (event) {
+                    if (event.target.type === 'checkbox') {
+                        const completionData = JSON.parse(localStorage.getItem('completionData')) || {};
+                        const goalCompletionData = completionData[goalText] || {};
+                        const todayKey = new Date().toISOString().split('T')[0];
+                        goalCompletionData[todayKey] = true;
+                        completionData[goalText] = goalCompletionData;
+                        localStorage.setItem('completionData', JSON.stringify(completionData));
+                        event.target.disabled = true;
+                        updateCheckmarks();
+                    }
+                });
+
+                // Function to update checkmarks
+                function updateCheckmarks() {
+                    const completionData = JSON.parse(localStorage.getItem('completionData')) || {};
+                    const goalCompletionData = completionData[goalText] || {};
+                    const completedDays = Object.values(goalCompletionData).filter(day => day).length;
+                    checkmarksContainer.innerHTML = '';
+                    for (let i = 0; i < completedDays; i++) {
+                        const checkmark = document.createElement('span');
+                        checkmark.classList.add('checkmark');
+                        checkmark.innerHTML = '&#10003;'; // Checkmark symbol
+                        checkmarksContainer.appendChild(checkmark);
+                    }
+                }
+            }
+
+            // Load goals from local storage if available
+            const storedGoals = JSON.parse(localStorage.getItem('goals')) || [];
+
+            // Render existing goals
+            storedGoals.forEach(goal => {
+                createGoalCard(goal);
+            });
+
+            // Function to update local storage
+            function updateLocalStorage(goals) {
+                localStorage.setItem('goals', JSON.stringify(goals));
+            }
+
+            // Function to handle goal form submission
+            goalForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const goalText = goalInput.value.trim();
+                if (goalText !== '') {
+                    createGoalCard(goalText);
+                    storedGoals.push(goalText);
+                    updateLocalStorage(storedGoals);
+                    goalInput.value = '';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
