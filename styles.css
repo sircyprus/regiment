@@ -1,0 +1,17 @@
+﻿body {
+    font-family: Arial, sans-serif;
+}
+
+.jumbotron {
+    display: flex;
+    align-items: center;
+    background-image: url('http://i.imgur.com/jeA0BXr.jpg');
+    background-size: cover;
+    color: #ffffff;
+    height: 500px;
+    text-shadow: 0.25px 0.25px 0.25px #000000;
+}
+
+btn btn-dark btn-lg{
+    color:black;
+}
