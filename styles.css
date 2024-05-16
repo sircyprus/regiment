@@ -1,135 +1,17 @@
-body {
-	background-color: #000;
-	color: rgb(0 239 20);
-	font-family: Brougham, Consolas, Calibri;
-	
+﻿body {
+    font-family: Arial, sans-serif;
 }
 
-
-
-.blockquote {
-	color: rgb(0 239 20);
-	font-size: 1.15rem;
+.jumbotron {
+    display: flex;
+    align-items: center;
+    background-image: url('http://i.imgur.com/jeA0BXr.jpg');
+    background-size: cover;
+    color: #ffffff;
+    height: 500px;
+    text-shadow: 0.25px 0.25px 0.25px #000000;
 }
 
-:root, [data-bs-theme=light] {
-	--bs-tertiary-bg-rgb: 0,0,0;
-	align-items: center;
-}
-
-.navbar navbar-expand-lg bg-body-tertiary {
-	font-family: Calibri;
-	color: red;
-}
-
-.container {
-	max-width: 600px;
-	margin: 20px auto;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	text-align: center;
-}
-
-.dropdownbtn {
-	background-color: transparent;
-	border: none;
-	border-bottom: 2px solid #00ff00; /* Green line at the bottom */
-	color: #00ff00; /* Green text */
-	transition: color 0.3s, border-color 0.3s; /* Smooth transition */
-}
-
-
-
-	.dropdownbtn:hover {
-		color: red; /* Change text color on hover */
-		border-color: red; /* Change border color on hover */
-	}
-
-h1 {
-	text-align: center;
-	margin-bottom: 20px;
-}
-
-label {
-	display: block;
-	margin-bottom: 10px;
-	font-weight: bold;
-}
-
-.checkbox-group {
-	display: inline-block;
-	margin-bottom: 0; /* Add space between checkboxes */
-}
-
-	.checkbox-group label {
-		display: block;
-		margin-bottom: 10px;
-	}
-
-button {
-	display: block;
-	width: 100%;
-	padding: 10px;
-	background-color: #000;
-	color: #00ff00;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-}
-
-	button:hover {
-		background-color: #00ff00;
-		color: black;
-	}
-
-.navbar-brand {
-	padding-top: var(--bs-navbar-brand-padding-y);
-	padding-bottom: var(--bs-navbar-brand-padding-y);
-	margin-right: var(--bs-navbar-brand-margin-end);
-	font-size: var(--bs-navbar-brand-font-size);
-	color: rgb(0 239 20);
-	text-decoration: none;
-	white-space: nowrap;
-}
-
-	.navbar-brand:hover {
-		color: red;
-	}
-
-
-.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
-	color: rgb(0 239 20);
-}
-
-
-.nav-item:hover {
-	color: red;
-}
-
-.navbar-nav .nav-link {
-	color: green;
-}
-
-.navbar-nav .nan-link:hover {
-	color: red;
-}
-
-.nav-link {
-	display: flex;
-	padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
-	font-size: var(--bs-nav-link-font-size);
-	font-weight: var(--bs-nav-link-font-weight);
-	color: red;
-	text-decoration: none;
-	background: 0 0;
-	border: 0;
-	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-}
-
-
-footer {
-	color: rgb(0 239 20);
-	text-align: center;
-	bottom: 0;
+btn btn-dark btn-lg{
+    color:black;
 }
